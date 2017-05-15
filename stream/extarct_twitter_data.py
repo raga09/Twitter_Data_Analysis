@@ -1,5 +1,6 @@
 import tweepy  # this will give an error if tweepy is not installed properly
 from tweepy import OAuthHandler
+import json
 
 # provide your access details below
 access_token = ""
@@ -11,6 +12,11 @@ auth = OAuthHandler(consumer_key, consumer_secret)
 auth.set_access_token(access_token, access_token_secret)
 
 api = tweepy.API(auth)
+tweetslist = api.search("%23haiku",rpp=10,since_id='863974490291802112')
+
+for status in tweetslist:
+    json_str = json.dumps(status._json)
+    print(json.loads(json_str)['text'])
 
 from tweepy import Stream
 from tweepy.streaming import StreamListener
@@ -35,7 +41,7 @@ class MyListener(StreamListener):
         return True
 
 
-twitter_stream = Stream(auth, MyListener())
+#twitter_stream = Stream(auth, MyListener())
 
 # change the keyword here
-twitter_stream.filter(track=['#cricket'])
+#twitter_stream.filter(track=['#cricket'])
