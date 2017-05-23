@@ -27,7 +27,9 @@ tweets_list = api.search("%23ipl", rpp=10, lang="en", geocode=geocode_)
 with open('D:\\GitRepos\\Twitter_Data_Analysis\\data\\twitter_data.txt', 'w', encoding='utf-8') as txt_file:
     for status in tweets_list:
         json_str = json.dumps(status._json)
-        tweet_text = json.loads(json_str)['text']
-        print(json.loads(json_str)['text'])
+        tweet_json = json.loads(json_str)
+        tweet_text = tweet_json['text']
+        tweet_user = tweet_json['user']
+        print(tweet_text,tweet_user)
         txt_file.write(tweet_text)
 
